@@ -1,0 +1,51 @@
+.menu {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+}
+
+.menu-alert {
+	margin: 5px 0 5px 0;
+	color: red;
+}
+
+.hovering {
+	position: relative;
+}
+
+.floating {
+	width: auto;
+	height: auto;
+	background-color: #FAF3E8;
+	display: none;
+	
+	position: fixed;
+	top : 40%;
+	left : 40%;
+	transform: translateY( -50%);
+	padding: 10px;
+	z-index: 1;
+}
+
+.product {
+	width: 40%;
+	display: flex;
+	flex-direction: row;
+}
+
+.prod-details {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+
+.bold {
+	font-size: 1.15rem;
+	font-weight: bold;
+}
+
+.italic {
+	font-size: 1.15rem;
+	font-style: italic;
+}

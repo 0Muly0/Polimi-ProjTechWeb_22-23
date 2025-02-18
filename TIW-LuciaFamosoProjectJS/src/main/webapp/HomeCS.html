@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Your favourite shop</title>
+<link rel="stylesheet" type="text/css" href="CSS/mystyle.css" />
+
+<script src="utils.js" charset="utf-8" defer></script>
+<script src="shopManagement.js" charset="utf-8" defer></script>
+</head>
+
+<body>
+
+	<div>
+		<div class="menu">
+			<a href="Home"> HOME </a> <a href="Orders"> ORDERS </a> <a
+				href="Cart"> CART </a> <a href="Logout"> Logout </a>
+		</div>
+
+		<div>
+			<form id="id_searchform" action="#">
+				<fieldset>
+					<p>
+						Search by keyword: <input type="text" name="keyword" required>
+					</p>
+					<input type="button" name="Search Product" value="Search">
+					<div id="id_menu_alert" class="menu-alert"></div>
+				</fieldset>
+			</form>
+		</div>
+
+		<div id="id_alert"></div>
+	</div>
+
+	<!-- HOME -->
+	<div id="id_home">
+		<h1>HOME PAGE</h1>
+		<div>
+			<h4>Your 5 most recent viewed products:</h4>
+
+			<table border="1">
+				<thead>
+					<tr>
+						<th>Product</th>
+						<th>Name</th>
+						<th>Description</th>
+						<th>Category</th>
+					</tr>
+				</thead>
+				<tbody id="id_lastviewedbody">
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div id="id_results">
+		<h1>RESULTS</h1>
+
+		<div id="id_results_table">
+			<table border="1">
+				<thead>
+					<tr>
+						<th>Code</th>
+						<th>Name</th>
+						<th>Minimum Price</th>
+					</tr>
+				</thead>
+				<tbody id="id_results_body">
+				</tbody>
+			</table>
+		</div>
+		<div id="id_results_alert"> No products found matching your research </div>
+
+		<hr>
+
+		<!-- PRODUCT DETAILS AND PHOTOS -->
+		<div id="id_proddetails">
+			<h2 id="id_det_title"></h2>
+
+			<div class="product">
+				<img id="id_det_photo" height="200" width="200" />
+
+				<div class="prod-details">
+					<div>
+						<span class="bold">Name:</span> <span id="id_det_name"
+							class="italic"></span>
+					</div>
+					<div>
+						<span class="bold">Description:</span> <span
+							id="id_det_description" class="italic"></span>
+					</div>
+					<div>
+						<span class="bold">Category:</span> <span id="id_det_category"
+							class="italic"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- PRODUCT ADVERTISEMENTS -->
+		<div id="id_prodadvertisement">
+			<div>
+				<h2 id="id_adv_title"></h2>
+
+				<div>
+					<table id="id_adv_body">
+					</table>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div id="id_orders">
+		<h1>YOUR ORDERS</h1>
+
+		<div id="id_orders_body"></div>
+	</div>
+
+	<div id="id_cart">
+		<h1>YOUR CART</h1>
+		<p id="id_cart_error">Some quantities inside your cart have been
+			changed due to limited supply in stock</p>
+
+		<div id=id_cart_body></div>
+	</div>
+
+</body>
+</html>
