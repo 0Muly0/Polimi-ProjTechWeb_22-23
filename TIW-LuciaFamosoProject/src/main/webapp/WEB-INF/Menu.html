@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1">
+	<link rel="stylesheet" type="text/css" href="../CSS/mystyle.css" th:href="@{/CSS/mystyle.css}" />
+</head>
+<body>
+
+	<div th:fragment="menu">
+		<div class="menu">
+			<a th:href="@{/GoToHome}"> HOME </a> 
+			<a th:href="@{/GoToOrders}"> ORDERS </a>
+			<a th:href="@{/GoToCart}"> CART </a> 
+			<a th:href="@{/Logout}"> Logout </a>
+		</div>
+
+		<div>
+			<form action="#" th:action="@{/GoToResults}" method="POST">
+				<fieldset>
+					<p>Search by keyword: <input type="text" name="keyword" required></p>
+					<input type="submit" value="Search">
+				</fieldset>
+			</form>
+		</div>
+
+	</div>
+
+</body>
+</html>

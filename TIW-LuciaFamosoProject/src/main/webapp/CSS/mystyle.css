@@ -1,0 +1,28 @@
+.menu {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+}
+
+.product {
+	width: 40%;
+	display: flex;
+	flex-direction: row;
+}
+
+.prod-details {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+}
+
+.bold {
+	font-size: 1.15rem;
+	font-weight: bold;
+}
+
+.italic {
+	font-size: 1.15rem;
+	font-style: italic;
+}

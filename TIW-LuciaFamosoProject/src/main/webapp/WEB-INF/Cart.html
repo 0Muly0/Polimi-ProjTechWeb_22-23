@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Cart</title>
+<link rel="stylesheet" type="text/css" href="../CSS/mystyle.css" th:href="@{/CSS/mystyle.css}" />
+</head>
+<body>
+
+	<div th:insert="@{WEB-INF/Menu.html} :: menu">...</div>
+
+	<h1>YOUR CART</h1>
+	<p th:text="${quantityError}"></p>
+
+	<div th:if="${not #lists.isEmpty(cart)}">
+		<div>
+			<table>
+				<tr th:each="ce, iterC : ${cart}">
+					<td>
+						<!-- SUPPLIER AND PRODUCTS -->
+						<ul>
+							<li><span th:text="${ce.supplier.name}"></span>
+								
+								<div th:if="${ce.productsDet != null}">
+									<ul th:each="p, iterP : ${ce.productsDet}">	
+										<li><span th:text="${p.name + ':'}"></span>
+											
+											<ul>
+												<li th:text="${'Description: ' + p.description}"></li>
+												<li th:text="${'Category: ' + p.category}"></li>
+												<li th:text="${'Quantity in cart: ' + p.cartQty}"></li>
+												<li th:text="${'Unit price: $' + p.cartUnitPrice}"></li>
+											</ul>
+											
+											<form action="RemoveFromCart" method="POST">
+												<input type="hidden" name="cartElementIdx" th:value="${iterC.index}" required> 
+												<input type="hidden" name="productIdx" th:value="${iterP.index}" required> 
+												<input type="submit" th:value="${'Remove ' + p.name + ' from cart'}">
+											</form>
+										</li>
+									</ul>
+								</div>
+								
+							</li>
+
+							<li th:text="${'Total product price: $' + ce.productPrice }"></li>
+							<li th:text="${'Total shipping price: $' + ce.shippingPrice }"></li>
+						</ul>
+					</td>
+					<td>
+						<!-- ORDER FORM -->
+						<form action="CreateOrder" method="POST">
+							<input type="hidden" name="cartElementIdx" th:value="${iterC.index}" required> 
+							<input type="submit" th:value="${'Order from ' + ce.supplier.name}">
+						</form>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div th:if="${#lists.isEmpty(cart)}">No products yet in your cart</div>
+
+</body>
+</html>

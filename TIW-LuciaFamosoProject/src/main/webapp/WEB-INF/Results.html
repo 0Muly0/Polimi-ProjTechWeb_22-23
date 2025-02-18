@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Home</title>
+<link rel="stylesheet" type="text/css" href="../CSS/mystyle.css" th:href="@{/CSS/mystyle.css}" />
+</head>
+<body>
+
+	<div th:insert="@{WEB-INF/Menu.html} :: menu">...</div>
+	
+	<div>
+		<h1>RESULTS</h1>
+		
+		<!-- RESULTS LIST -->
+		<div th:if="${not #lists.isEmpty(products)}">
+			<table border="1">
+				<thead>
+					<tr>
+						<th>Code</th>
+						<th>Name</th>
+						<th>Minimum Price</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="p : ${products}">
+						<td><a th:href="@{/GoToResults(codeProduct=${p.codeProduct})}">
+								<span th:text="${ p.codeProduct }"></span>
+						</a></td>
+						<td th:text="${p.name}"></td>
+						<td th:text="${'$' + p.minprice }"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div th:if="${#lists.isEmpty(products)}">No products found matching your research</div>
+	
+		<hr>
+	
+		<!-- PRODUCT DETAILS AND PHOTOS -->
+		<div th:if="${prodDetails != null}">
+			<h2 th:text="${prodDetails.name + ' details:'}"></h2>
+	
+			<div class="product">
+				<img height="200" width="200" th:src="@{'data:image/jpeg;base64,' + ${prodDetails.photo}}"/>
+				<div class="prod-details">
+					<div>
+						<span class="bold" th:text="${'Name: '}"></span>
+						<span class="italic" th:text="${prodDetails.name}"></span>
+					</div>
+					<div>
+						<span class="bold" th:text="${'Description: '}"></span>
+						<span class="italic" th:text="${prodDetails.description}"></span>
+					</div>
+					<div>
+						<span class="bold" th:text="${'Category: '}"></span>
+						<span class="italic" th:text="${prodDetails.category}"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<!-- PRODUCT ADVERTISEMENTS -->
+		<div th:if="${prodAdds != null}">
+			
+			<div th:if="${not #lists.isEmpty(prodAdds)}">
+				<h2 th:text="${prodDetails.name + ' advertisements:'}"></h2>
+	
+				<div>
+					<table>
+						<tr th:each="pa : ${prodAdds}">
+							
+							<!-- SUPPLIER DATAS -->
+							<td>
+								<ul>
+									<li>
+										<h2 th:text="${pa.supplier.name}"></h2>
+										<ul>
+											<li>
+												<span class="bold" th:text="${'Rating: '}"></span>
+												<span class="italic" th:text="${pa.supplier.evaluation + '/5'}"></span>
+											</li>	
+											<li><span class="bold" th:text="${'Shipping Price Ranges:'}"></span>
+											
+												<ul th:each="pr : ${pa.supplier.shippingPolicy}">
+													<li th:with="rangeIdx=${pa.supplier.shippingPolicy.indexOf(pr) + 1}">
+														<span th:text="${'Range ' + rangeIdx}"></span>
+														<ul>
+															<li th:text="${'Minimum amount of products: '  + pr.min}"></li>
+															<li th:text="${'Maximum amount of products: ' + pr.max}"></li>
+															<li th:text="${'Shipping price: $' + pr.shippingPrice}"></li>
+														</ul>
+													</li>
+												</ul>
+												
+											</li>
+											<li>
+												<span class="bold" th:text="${'Unit price: '}"></span>
+												<span class="italic" th:text="${'$' + pa.price}"></span>
+											</li>
+											<li>
+												<span class="bold" style="color:red;" th:if="${pa.quantity == 0}">OUT OF STOCK</span>
+												
+												<div th:if="${pa.quantity > 0}" >
+													<span class="bold" th:text="${'Available products: '}"></span>
+													<span class="italic" th:text="${pa.quantity }"></span>
+												</div>
+											</li>
+											<li>
+												<span class="bold" th:text="${'Already in cart from this supplier: '}"></span>
+												<span class="italic" th:text="${pa.cartQty}"></span>
+											</li>
+											<li>
+												<span class="bold" th:text="${'Cart total from this supplier: '}"></span>
+												<span class="italic" th:text="${'$' + pa.cartTot + ' (whitout shipping fee)'}"></span>
+											</li>											
+										</ul>
+									</li>
+									<li th:if="${pa.supplier.treshold != null}">
+										<span class="italic" th:text="${'Free shipping granted with purchases for a total of $' + pa.supplier.treshold}"></span>
+									</li>
+								</ul>
+							</td>
+							
+							
+							<!-- CART FORM -->
+							<td>
+								<form action="AddToCart" method="POST">
+									<input type="hidden" name="codeProduct" th:value="${pa.codeProduct}" required>
+									<input type="hidden" name="codeSupplier" th:value="${pa.codeSupplier}" required>
+									Quantity: <input type="number" name="cartqty"  th:min="1" th:max="${pa.quantity}" required>
+									<br> <input type="submit" value="Add to cart">
+								</form>
+							</td>
+						</tr>
+					</table>
+				</div>
+	
+			</div>
+			<div th:if="${#lists.isEmpty(prodAdds)}">No advertisements found for this product</div>
+		</div>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Home</title>
+<link rel="stylesheet" type="text/css" href="../CSS/mystyle.css" th:href="@{/CSS/mystyle.css}" />
+</head>
+<body>
+
+	<div th:insert="@{WEB-INF/Menu.html} :: menu">...</div>
+	<div>
+		<h1> HOME PAGE </h1>
+		<div>
+			<h4>Your 5 most recent viewed products:</h4>
+			
+			<table border="1">
+				<thead>
+					<tr>
+						<th>Product</th>
+						<th>Name</th>
+						<th>Description</th>
+						<th>Category</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="p : ${products}">
+						<td><img width="100" th:src="@{'data:image/jpeg;base64,' + ${p.photo}}"/></td>
+						<td><a th:href="@{/GoToResults(codeProduct=${p.codeProduct})}"><span th:text="${ p.name }"></span></a></td>
+						<td th:text="${ p.description }"></td>
+						<td th:text="${ p.category }"></td>
+					</tr>
+				</tbody>
+			</table>		
+		</div>
+	</div>
+	
+</body>
+</html>

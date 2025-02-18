@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Orders</title>
+<link rel="stylesheet" type="text/css" href="../CSS/mystyle.css" th:href="@{/CSS/mystyle.css}" />
+</head>
+<body>
+
+	<div th:insert="@{WEB-INF/Menu.html} :: menu">...</div>
+
+	<h1>YOUR ORDERS</h1>
+
+	<div th:if="${not #lists.isEmpty(orders)}">
+		<div>
+			<ul th:each="o: ${orders}">
+				<li>
+					<span th:text="${'Order code: ' + o.codeOrder}"></span>
+					<ul>
+						<li th:text="${'Supplier name: ' + o.supplier.name}"></li>
+						<li th:text="${'Shipping address: ' + user.address}"></li>
+						<li th:text="${'Date: ' + o.date}"></li>
+						<li th:text="${'Total: $' + o.total}"></li>
+						
+						<li>
+							<span th:text="${'Product list:'}"></span>
+							<ul th:each="p : ${o.products}">
+								<li>
+									<span th:text="${p.name}"></span>
+									<ul>
+										<li th:text="${'Description: ' + p.description}"></li>
+										<li th:text="${'Category: ' + p.category}"></li>
+										<li th:text="${'Quantity ordered: ' + p.cartQty}"></li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div th:if="${#lists.isEmpty(orders)}">No orders yet, start shopping to fill your existential void</div>
+
+
+
+</body>
+</html>
